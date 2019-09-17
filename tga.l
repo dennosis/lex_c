@@ -8,40 +8,43 @@
 
 %}
 
+DIGIT	[0-9]
+ID	[a-z][a-z0-9]*
 
 %%
 
-{DIGIT}+ { printf("Numero inteiro encontrado: %s (%d)\n", yytext, atoi(yytext));}
+\\n printf("\n%s\n", yytext);		
 
-{DIGIT}"."{DIGIT}* {printf("Numero float encontrado: %s (%f)\n", yytext, atof(yytext));}
+"/"[\^{}}\n]*"/" {printf("comment%s", yytext);}
 
-if|then|begin|procedure|function	{
-		printf("Palavra reservada encontrada: %s\n ", yytext);}
+"+"|"-"|"*"|"/" {printf("Arith_Op: %s", yytext);}
 
-{ID}	{printf("Identificador encontrado: %s\n", yytext);}
+"do"|"while"|"if"|"else"|"switch"|"for"|"return"|"null"|"int"|"float"|"double"|"string"|"bool"|"break"|"case"  {printf("reserved_word: %s", yytext);}
 
-"+"|"-"|"*"|"/" {printf("Operador encontrado: %s\n", yytext);}
+"<"|"<="|"=="|"!="|">="|">"  {printf("Relational_Op: %s", yytext);}
 
-"do"|"while"|"if"|"else"|"switch"|"for"|"return"|"null"|"int"|"float"|"double"|"string"|"bool"|"break"|"case"  {printf("reserved_word: %s\n", yytext);}
+"||"|"&&"  {printf("logic_op: %s", yytext);}
 
-"<"|"<="|"=="|"!="|">="|">"  {printf("Relational_Op: %s\n", yytext);}
-
-"||"|"&&"  {printf("logic_op: %s\n", yytext);}
-
-"=" {printf("equal: %s\n", yytext);}
-"(" {printf("l_paren: %s\n", yytext);}
-")" {printf("r_paren: %s\n", yytext);}
-"{" {printf("l_bracket: %s\n", yytext);}
-"}" {printf("r_bracket: %s\n", yytext);}
-"," {printf("comma: %s\n", yytext);}
-";" {printf("semicolon,: %s\n", yytext);}
+"=" {printf("equal: %s", yytext);}
+"(" {printf("l_paren: %s", yytext);}
+")" {printf("r_paren: %s", yytext);}
+"{" {printf("l_bracket: %s", yytext);}
+"}" {printf("r_bracket: %s", yytext);}
+"," {printf("comma: %s", yytext);}
+";" {printf("semicolon,: %s", yytext);}
 
 
-"{"[\^{}}\n]*"}"	
+{DIGIT}+ { printf("Numero inteiro encontrado: %s (%d)", yytext, atoi(yytext));}
+
+{DIGIT}"."{DIGIT}* {printf("Numero float encontrado: %s (%f)", yytext, atof(yytext));}
+
+{ID}	{printf("Identificador encontrado: %s", yytext);}
+
+
 
 [ \t\n]+		
 
-.	printf("Caractere nao reconhecido: %s\n", yytext);
+.	printf("Caractere nao reconhecido: %s", yytext);
 
 %%
 
