@@ -22,6 +22,21 @@ if|then|begin|procedure|function	{
 
 "+"|"-"|"*"|"/" {printf("Operador encontrado: %s\n", yytext);}
 
+"do"|"while"|"if"|"else"|"switch"|"for"|"return"|"null"|"int"|"float"|"double"|"string"|"bool"|"break"|"case"  {printf("reserved_word: %s\n", yytext);}
+
+"<"|"<="|"=="|"!="|">="|">"  {printf("Relational_Op: %s\n", yytext);}
+
+"||"|"&&"  {printf("logic_op: %s\n", yytext);}
+
+"=" {printf("equal: %s\n", yytext);}
+"(" {printf("l_paren: %s\n", yytext);}
+")" {printf("r_paren: %s\n", yytext);}
+"{" {printf("l_bracket: %s\n", yytext);}
+"}" {printf("r_bracket: %s\n", yytext);}
+"," {printf("comma: %s\n", yytext);}
+";" {printf("semicolon,: %s\n", yytext);}
+
+
 "{"[\^{}}\n]*"}"	
 
 [ \t\n]+		
