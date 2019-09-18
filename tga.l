@@ -3,48 +3,73 @@
 %option noyywrap
 
 %{
-
 #include <math.h>
+#include <string.h>
+#include <stdlib.h>
+
+char* concat(const char *s1, const char *s2)
+{
+    char *result = malloc(strlen(s1) + strlen(s2) + 1); // +1 for the null-terminator
+    strcpy(result, s1);
+    strcat(result, s2);
+    return result;
+}
+
+
+
+int qprintf(char type[], char value[]){
+	
+	char *result = "";
+	result = concat("[", result);
+	result = concat(result, type);
+	result = concat(result, ",");
+	result = concat(result, value);
+	result = concat(result, "]\n");
+
+ 	printf(result, yytext);
+  	return 1;
+}
 
 %}
 
 DIGIT	[0-9]
-ID	[a-z][a-z0-9]*
+ID	[_a-zA-Z][_a-zA-Z0-9]*
 
 %%
 
-\\n printf("\n%s\n", yytext);		
+"do"|"while"|"if"|"else"|"switch"|"for"|"return"|"null"|"int"|"float"|"double"|"string"|"bool"|"break"|"case"|"void"  {qprintf("reserved_word", "%s");}
 
-"/"[\^{}}\n]*"/" {printf("comment%s", yytext);}
+"+"|"-"|"*"|"/" {qprintf("Arith_Op", "%s");}
 
-"+"|"-"|"*"|"/" {printf("Arith_Op: %s", yytext);}
+"<"|"<="|"=="|"!="|">="|">"  {qprintf("Relational_Op", "%s");}
 
-"do"|"while"|"if"|"else"|"switch"|"for"|"return"|"null"|"int"|"float"|"double"|"string"|"bool"|"break"|"case"  {printf("reserved_word: %s", yytext);}
+"||"|"&&"  {qprintf("logic_op", "%s");}
 
-"<"|"<="|"=="|"!="|">="|">"  {printf("Relational_Op: %s", yytext);}
-
-"||"|"&&"  {printf("logic_op: %s", yytext);}
-
-"=" {printf("equal: %s", yytext);}
-"(" {printf("l_paren: %s", yytext);}
-")" {printf("r_paren: %s", yytext);}
-"{" {printf("l_bracket: %s", yytext);}
-"}" {printf("r_bracket: %s", yytext);}
-"," {printf("comma: %s", yytext);}
-";" {printf("semicolon,: %s", yytext);}
+"=" {qprintf("equal", "%s");}
+"(" {qprintf("l_paren", "%s");}
+")" {qprintf("r_paren", "%s");}
+"{" {qprintf("l_bracket ", "%s");}
+"}" {qprintf("r_bracket", "%s");}
+"," {qprintf("comma", "%s");}
+";" {qprintf("semicolon", "%s");}
 
 
-{DIGIT}+ { printf("Numero inteiro encontrado: %s (%d)", yytext, atoi(yytext));}
+{DIGIT}+ { qprintf("integer", "%s");}
 
-{DIGIT}"."{DIGIT}* {printf("Numero float encontrado: %s (%f)", yytext, atof(yytext));}
+{DIGIT}"."{DIGIT}* {qprintf("float", "%s");}
 
-{ID}	{printf("Identificador encontrado: %s", yytext);}
+["][^"]*["] {qprintf("string", "%s");}
+
+{ID}	{qprintf("id", "%s");}
 
 
+[ \t\n]+	/* eat up whitespace */	
 
-[ \t\n]+		
+"//"(.)*"\n"  /*ignora comentarios */
 
-.	printf("Caractere nao reconhecido: %s", yytext);
+[/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]    /*ignora comentarios */
+
+.	qprintf("Caractere nao reconhecido", "%s");
 
 %%
 
