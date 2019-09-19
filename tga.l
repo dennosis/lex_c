@@ -37,7 +37,7 @@ ID	[_a-zA-Z][_a-zA-Z0-9]*
 
 %%
 
-"do"|"while"|"if"|"else"|"switch"|"for"|"return"|"null"|"int"|"float"|"double"|"string"|"bool"|"break"|"case"|"void"  {qprintf("reserved_word", "%s");}
+"do"|"while"|"if"|"else"|"switch"|"for"|"return"|"null"|"int"|"float"|"double"|"string"|"bool"|"break"|"case"|"void"|#include.*$  {qprintf("reserved_word", "%s");}
 
 "+"|"-"|"*"|"/" {qprintf("Arith_Op", "%s");}
 
