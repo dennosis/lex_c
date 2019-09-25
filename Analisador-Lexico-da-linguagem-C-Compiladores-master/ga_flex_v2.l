@@ -89,6 +89,7 @@ int qprintf(char type[], char value[]){
 }
 
 int printid(char value[]){
+        queue*q = create();
         queueELEM*aux = q->begin;
         int id = 1;
         char buf[15];
@@ -137,7 +138,7 @@ ID	[_a-zA-Z]*
 
 ["][^"]*["] {qprintf("string_literal", "%s");}
 
-{ID}  {printid("%s")}
+{ID}  {printid("%s");}
 
 [ \t\n]+	/* eat up whitespace */	
 
