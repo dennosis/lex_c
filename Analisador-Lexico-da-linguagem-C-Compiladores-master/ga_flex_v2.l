@@ -7,10 +7,68 @@
 #include <string.h>
 #include <stdlib.h>
 
-int contid = 1;
+typedef struct queueElem{  
+    struct queueElem*next; 
+    char data[15]; 
+}queueELEM;                    
+typedef struct queue{
+    struct queueElem*begin;
+    struct queueElem*end;
+}queue;
+int opt;
 
-char* concat(const char *s1, const char *s2)
-{
+queue*create(){
+    queue*q = (queue*)malloc(sizeof(queue));
+    if(!q)
+        exit(1);
+    else{
+     q->begin = NULL;
+     q->end = NULL;
+    }
+    return q;
+}
+int emptyQUEUE(queue*q){
+    if(q==NULL) return 1;
+    if(q->begin==NULL) return 1;
+    else return 0;
+}
+
+queueELEM* allocate(char value[]){
+    queueELEM* node = malloc(sizeof(queueELEM) + 15*sizeof(char*));
+    if(!node)
+        exit(1);
+    else{
+        strcpy(node->data, value);
+        node->next = NULL;
+        return node; 
+        
+    }
+}
+void enqueue(queue*q,char value[]){
+      
+    queueELEM*node = allocate(value);
+    
+    if(!node)
+        exit(1);
+    if(q->end == NULL)
+        q->begin = node;
+    else
+        q->end->next = node;
+    q->end = node;
+}
+
+int dequeue(queue*q){
+    if(emptyQUEUE(q)) return 0;
+
+    queueELEM*node = q->begin;
+    q->begin = q->begin->next;
+    if(q->begin!=NULL)
+        q->end = NULL;
+    free(node);
+    return 1;
+}
+
+char* concat(const char *s1, const char *s2){
     char *result = malloc(strlen(s1) + strlen(s2) + 1); // +1 for the null-terminator
     strcpy(result, s1);
     strcat(result, s2);
@@ -28,6 +86,25 @@ int qprintf(char type[], char value[]){
 
  	printf(result, yytext);
   	return 1;
+}
+
+int printid(char value[]){
+        queueELEM*aux = q->begin;
+        int id = 1;
+        char buf[15];
+        while(aux!=NULL){
+            if(strcmp(aux->data, value)){
+                sprintf(buf, "%i", id);
+                qprintf(buf,value);
+                return 1;
+            }
+            aux = aux->next; 
+            id++;
+        }
+        enqueue(q,value);
+        sprintf(buf, "%i", id);
+        qprintf(buf,value);
+        return 0;       
 }
 
 %}
@@ -60,8 +137,7 @@ ID	[_a-zA-Z]*
 
 ["][^"]*["] {qprintf("string_literal", "%s");}
 
-
-{ID}  {printf("[id,%d]", contid++);}
+{ID}  {printid("%s")}
 
 [ \t\n]+	/* eat up whitespace */	
 
