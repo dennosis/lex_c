@@ -61,6 +61,7 @@ int printid(char value[]){
 
     if(arrayId.array == NULL){
         initArray(value);
+        qprintf("id", "1");
     }else{
         int i;
         for (i = 0; i < arrayId.size; i++){

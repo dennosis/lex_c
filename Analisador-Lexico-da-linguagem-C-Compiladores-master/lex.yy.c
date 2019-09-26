@@ -492,6 +492,7 @@ int printid(char value[]){
 
     if(arrayId.array == NULL){
         initArray(value);
+        qprintf("id", "1");
     }else{
         int i;
         for (i = 0; i < arrayId.size; i++){
@@ -507,7 +508,7 @@ int printid(char value[]){
 
 }
 
-#line 511 "lex.yy.c"
+#line 512 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -658,10 +659,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 84 ".\\ga_flex_v2.l"
+#line 85 ".\\ga_flex_v2.l"
 
 
-#line 665 "lex.yy.c"
+#line 666 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -746,77 +747,77 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 86 ".\\ga_flex_v2.l"
+#line 87 ".\\ga_flex_v2.l"
 {qprintf("reserved_word", "%s");}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 88 ".\\ga_flex_v2.l"
+#line 89 ".\\ga_flex_v2.l"
 {qprintf("Arith_Op", "%s");}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 90 ".\\ga_flex_v2.l"
+#line 91 ".\\ga_flex_v2.l"
 {qprintf("Relational_Op", "%s");}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 92 ".\\ga_flex_v2.l"
+#line 93 ".\\ga_flex_v2.l"
 {qprintf("logic_op", "%s");}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 94 ".\\ga_flex_v2.l"
+#line 95 ".\\ga_flex_v2.l"
 {qprintf("equal", "%s");}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 95 ".\\ga_flex_v2.l"
+#line 96 ".\\ga_flex_v2.l"
 {qprintf("l_paren", "%s");}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 96 ".\\ga_flex_v2.l"
+#line 97 ".\\ga_flex_v2.l"
 {qprintf("r_paren", "%s");}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 97 ".\\ga_flex_v2.l"
+#line 98 ".\\ga_flex_v2.l"
 {qprintf("l_bracket ", "%s");}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 98 ".\\ga_flex_v2.l"
+#line 99 ".\\ga_flex_v2.l"
 {qprintf("r_bracket", "%s");}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 99 ".\\ga_flex_v2.l"
+#line 100 ".\\ga_flex_v2.l"
 {qprintf("comma", "%s");}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 100 ".\\ga_flex_v2.l"
+#line 101 ".\\ga_flex_v2.l"
 {qprintf("semicolon", "%s");}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 103 ".\\ga_flex_v2.l"
+#line 104 ".\\ga_flex_v2.l"
 { qprintf("num", "%s");}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 105 ".\\ga_flex_v2.l"
+#line 106 ".\\ga_flex_v2.l"
 {qprintf("num", "%s");}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 107 ".\\ga_flex_v2.l"
+#line 108 ".\\ga_flex_v2.l"
 {qprintf("string_literal", "%s");}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 109 ".\\ga_flex_v2.l"
+#line 110 ".\\ga_flex_v2.l"
 {
     char *string = malloc(strlen(yytext)*sizeof(char)); strcpy(string, yytext);
     printid(string);
@@ -824,30 +825,30 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 114 ".\\ga_flex_v2.l"
+#line 115 ".\\ga_flex_v2.l"
 /* eat up whitespace */	
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 116 ".\\ga_flex_v2.l"
+#line 117 ".\\ga_flex_v2.l"
 /*ignora comentarios */
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 118 ".\\ga_flex_v2.l"
+#line 119 ".\\ga_flex_v2.l"
 /*ignora comentarios */
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 120 ".\\ga_flex_v2.l"
+#line 121 ".\\ga_flex_v2.l"
 qprintf("Caractere nao reconhecido", "%s");
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 122 ".\\ga_flex_v2.l"
+#line 123 ".\\ga_flex_v2.l"
 ECHO;
 	YY_BREAK
-#line 851 "lex.yy.c"
+#line 852 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1733,7 +1734,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 122 ".\\ga_flex_v2.l"
+#line 123 ".\\ga_flex_v2.l"
 
 
 int main(int argc, char *argv[]){
