@@ -80,11 +80,11 @@ int printid(char value[]){
 %}
 
 DIGIT	[0-9]
-ID	[_a-zA-Z]*
+ID	[_a-zA-Z][_a-zA-Z0-9]*
 
 %%
 
-"do"|"while"|"if"|"else"|"switch"|"for"|"return"|"null"|"int"|"float"|"double"|"string"|"bool"|"break"|"case"|"void" {qprintf("reserved_word", "%s");}
+"do"|"while"|"if"|"else"|"switch"|"for"|"return"|"null"|"int"|"float"|"double"|"string"|"bool"|"break"|"case"|"void"|"char"|"#include"|"printf"|"getch"|"clrscr"|"scanf" {qprintf("reserved_word", "%s");}
 
 "+"|"-"|"*"|"/" {qprintf("Arith_Op", "%s");}
 
@@ -100,7 +100,6 @@ ID	[_a-zA-Z]*
 "," {qprintf("comma", "%s");}
 ";" {qprintf("semicolon", "%s");}
 
-
 {DIGIT}+ { qprintf("num", "%s");}
 
 {DIGIT}"."{DIGIT}* {qprintf("num", "%s");}
@@ -111,6 +110,8 @@ ID	[_a-zA-Z]*
     char *string = malloc(strlen(yytext)*sizeof(char)); strcpy(string, yytext);
     printid(string);
     }
+
+{ID}".h" {qprintf("library", "%s");}
 
 [ \t\n]+	/* eat up whitespace */	
 
